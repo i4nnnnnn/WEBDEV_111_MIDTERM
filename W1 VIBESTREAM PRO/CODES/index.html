@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> VibeStream Pro || Homepage </title>
+    <style> 
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: black;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /*---HEADER AND NAVIGATION---*/
+        .header-nav {
+            background-color: black;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .left-nav {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #81947E;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .custom-icon {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            color: white;
+        }
+
+        .site-logo {
+            height: 30px; 
+            width: auto;
+            margin-left: 10px;
+        }
+
+        /*---SEARCH AND ACCOUNT---*/
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .search-container input {
+            background-color: #242424;
+            border: 1px solid transparent;
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: white;
+            width: 280px;
+            font-size: 14px;
+        }
+
+        .account-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #282828;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .account-icon:hover {
+            transform: scale(1.1);
+            border-color: #1DB954;
+        }
+
+        /*---SLICK CARD & LINK STYLES---*/
+        .album-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            background-color: #282828;
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            height: 80px;
+            border: 1px solid transparent;
+        }
+
+        /* The "Slick" Animations */
+        .card:hover {
+            background-color: rgba(255,255,255, 0.2);
+            transform: translateY(-3px); /* Lifts up slightly */
+        }
+
+        .card:active {
+            transform: scale(0.96); /* Lulubog pag pinindot (The Click!) */
+            background-color: #121212;
+        }
+
+        .card-img img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            background-color: #444;
+        }
+
+        .card-text {
+            padding: 0 16px; 
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /*--- SQUARE CONTAINER ---*/
+        .square-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 24px;
+            padding: 20px 0;
+        }
+
+        .square-card {
+            background-color: #181818;
+            padding: 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .square-card:hover { 
+            background-color: #282828; 
+            transform: scale(1.03);
+        }
+
+        .square-card:active { transform: scale(0.98); }
+
+        .square-img-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1; 
+            margin-bottom: 16px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+
+        .square-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mix-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px;
+            font-family: sans-serif;
+            font-weight: 900;
+            font-size: 16px;
+            text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .color-cyan { background-color: #00f0ff; color: black; }
+        .color-yellow { background-color: #f0ff00; color: black; }
+        .color-red { background-color: #ff4632; color: black; }
+        .color-pink { background-color: #f0a7ed; color: black; }
+
+        .square-subtext {
+            color: #b3b3b3;
+            font-size: 14px;
+            line-height: 20px;
+            margin: 0;
+        }
+
+        /* VIDEO BOX */
+        .month { 
+            height: 400px;    
+            width: 100%;
+            border-radius: 30px;
+            overflow: hidden; 
+            position: relative;
+            background-color: #000;
+            margin-bottom: 50px;
+            border: 1px solid #333;
+        }
+
+        .month video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }   
+
+        /* FOOTER */
+        .footer {
+            border: 1px solid rgba(255,255,255,0.2); 
+            width: 100%;
+            border-radius: 30px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        /* RESPONSIVE */
+        @media(max-width: 1000px) {
+            .grid, .square-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 700px) {
+            .grid, .square-container { grid-template-columns: 1fr; }
+            .header-nav { flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-nav">
+        <div class="left-nav">
+            <a href="VG.html" class="nav-item active">
+                <img src="homeicon.png" class="custom-icon"> HOME 
+            </a>
+            <a href="Premium.html" class="nav-item">
+                <img src="premium.png" class="custom-icon"> PREMIUM 
+            </a>
+            <a href="About.html" class="nav-item">
+                <img src="abouticon.png" class="custom-icon"> ABOUT US 
+            </a>
+            <img src="logo.png" class="site-logo" alt="LOGO">
+        </div>
+
+        <div class="header-right">
+            <div class="search-container">
+                <input type="text" placeholder="Search for...">
+            </div>
+            <a href="log.html" class="profile-link">
+                <div class="account-icon">
+                    <img src="pfp.png" alt="P">
+                </div>
+            </a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        
+        <div class="grid">
+            <a href="liked-songs.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="like.jpg"></div><div class="card-text"> Liked Songs </div></div>
+            </a>
+            <a href="pinoymusic.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="wale.jpg"></div><div class="card-text"> Pinoy Music </div></div>
+            </a>
+            <a href="kpopmusic.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="Kpop.jpg"></div><div class="card-text"> K-pop Songs </div></div>
+            </a>
+            <a href="hardrockmusic.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="rock.jpg"></div><div class="card-text"> Hardrock / Metal </div></div>
+            </a>
+            <a href="animemusic.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="anime.jpg"></div><div class="card-text"> Anime Music </div></div>
+            </a>
+            <a href="movies.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="TM.jpg"></div><div class="card-text"> TV & Movies </div></div>
+            </a>
+            <a href="phonk.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="phonk.jpg"></div><div class="card-text"> Phonk Vibes </div></div>
+            </a>
+            <a href="love.html" class="album-link">
+                <div class="card"><div class="card-img"><img src="love.jpg"></div><div class="card-text"> Love Songs </div></div>
+            </a>
+        </div>
+
+        <h2> Recommended For You </h2>
+
+        <div class="square-container">
+            <div class="square-card">
+                <div class="square-img-container">
+                    <img src="daily1.jpg">
+                    <div class="mix-label color-cyan"> Daily Mix <span> 01 </span></div>
+                </div>
+                <p class="square-subtext">Artist 1, Artist 2, and more...</p>
+            </div>
+            <div class="square-card">
+                <div class="square-img-container">
+                    <img src="daily2.jpg">
+                    <div class="mix-label color-yellow"> Daily Mix <span> 02 </span></div>
+                </div>
+                <p class="square-subtext">Artist 3, Artist 4, and more...</p>
+            </div>
+            <div class="square-card">
+                <div class="square-img-container">
+                    <img src="daily3.jpg">
+                    <div class="mix-label color-red"> Daily Mix <span> 03 </span></div>
+                </div>
+                <p class="square-subtext">Artist 5, Artist 6, and more...</p>
+            </div>
+            <div class="square-card">
+                <div class="square-img-container">
+                    <img src="daily4.jpg">
+                    <div class="mix-label color-pink"> Daily Mix <span> 04 </span></div>
+                </div>
+                <p class="square-subtext">Artist 7, Artist 8, and more...</p>
+            </div>
+        </div>
+
+        <h2> Song of the Month </h2>
+        <p style="color: #b3b3b3; margin-bottom: 15px;"> PinkPantheress - Stateside + Zara Larsson </p>
+
+        <div class="month"> 
+            <video autoplay muted loop playsinline>
+                <source src="PPRES.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="footer"> 
+            <h2 style="font-size: 18px; color: white; opacity: 0.7;"> 
+                ALL RIGHTS RESERVED - SAMPLE WEBSITE 2026 - DI PA TAPOS HURHURHRUHRURH 
+            </h2>
+        </div>
+    </main>
+
+</body>
+</html>
